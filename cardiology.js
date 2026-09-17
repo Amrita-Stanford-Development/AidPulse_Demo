@@ -61,23 +61,23 @@
 
     const embRows = queryEmb.map((v, i) => [`z[${i}]`, v]);
     const simRows = top.map((t) => ({
-      label: `Patient #${t.item.id} — ${t.item.cvd ? 'CVD Positive' : 'CVD Negative'}`,
+      label: `Patient #${t.item.id}: ${t.item.cvd ? 'CVD Positive' : 'CVD Negative'}`,
       sim: t.sim,
     }));
 
-    const code = await codeDetailsHtml('Show the exact code that ran (nn.js — encoder forward pass + cosine similarity)');
+    const code = await codeDetailsHtml('Show the exact code that ran (nn.js: encoder forward pass + cosine similarity)');
 
     document.getElementById('cardio-steps').innerHTML = stepsWrapperHtml(`
       <h3>1. Your input, as the paper's 20 engineered features</h3>
-      <p class="note">Age/height/weight/BP become BMI, pulse pressure, MAP, age-decade flags, lifestyle-risk and metabolic-risk composites — the same feature construction used to train this model.</p>
+      <p class="note">Age/height/weight/BP become BMI, pulse pressure, MAP, age-decade flags, lifestyle-risk and metabolic-risk composites, the same feature construction used to train this model.</p>
       ${vecTableHtml(featureRows, 2)}
 
-      <h3>2. Standardized (continuous features only — binary flags pass through as-is)</h3>
+      <h3>2. Standardized (continuous features only; binary flags pass through as-is)</h3>
       <p class="note">Using this model's real fitted StandardScaler (mean/scale learned during training, not re-fit here).</p>
       ${vecTableHtml(contRows)}
 
       <h3>3. Encoded to a 6-dimensional latent embedding</h3>
-      <p class="note">Two Linear→BatchNorm→ReLU blocks, then a final Linear layer (μ head) — this is the real trained VAE encoder, run just now, in your browser.</p>
+      <p class="note">Two Linear→BatchNorm→ReLU blocks, then a final Linear layer (μ head): this is the real trained VAE encoder, run just now, in your browser.</p>
       ${vecTableHtml(embRows)}
       ${code}
 

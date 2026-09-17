@@ -3,22 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AidPulse — Reviewer Demo</title>
+<title>AidPulse: Reviewer Demo</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="wrap">
   <header>
-    <h1>AidPulse — Retrieval Reviewer Demo</h1>
-    <p class="sub">A reduced, standalone companion to the manuscript "AidPulse: LLM-Augmented Patient Similarity Search for Clinical Decision Support" — retrieval only, no LLM step.</p>
+    <h1>AidPulse: Retrieval Reviewer Demo</h1>
+    <p class="sub">A reduced, standalone companion to the manuscript "AidPulse: LLM-Augmented Patient Similarity Search for Clinical Decision Support", retrieval only, no LLM step.</p>
   </header>
 
   <details class="disclaimer" open>
-    <summary>What this is (and isn't) — read before using</summary>
+    <summary>What this is (and isn't): read before using</summary>
     <p>This demo exists to answer one specific reviewer question: can you actually run the trained retrieval models on an input and see the output? It reproduces only the encode → nearest-neighbor step of the pipeline described in the manuscript. It is <b>not</b> the AidPulse application (patent-pending, excluded here the same way it's excluded from the reviewer package) and it does <b>not</b> include the LLM clinical-reasoning step.</p>
     <ul>
-      <li><b>Cardiology</b> — the real trained model and its real 10,254-patient corpus (public Kaggle Cardiovascular Disease dataset), the same artifact already shared in the reviewer package. You can type in any hypothetical patient.</li>
-      <li><b>Ophthalmology (AIMS Kochi)</b> — real embeddings from the real trained model for the actual 236-patient private cohort behind manuscript Table 5. No model weights (encoder or decoder) are included, and no raw clinical values are included — only a coarse age-decade, gender, and CAD-type label per case. Patient IDs shown are shuffled demo indices with no relation to the source records. Because the encoder isn't shipped, you can only pick among the 236 real (anonymized) cases as your query, not type a new hypothetical one.</li>
+      <li><b>Cardiology</b>: the real trained model and its real 10,254-patient corpus (public Kaggle Cardiovascular Disease dataset), the same artifact already shared in the reviewer package. You can type in any hypothetical patient.</li>
+      <li><b>Ophthalmology (AIMS Kochi)</b>: real embeddings from the real trained model for the actual 236-patient private cohort behind manuscript Table 5. No model weights (encoder or decoder) are included, and no raw clinical values are included, only a coarse age-decade, gender, and CAD-type label per case. Patient IDs shown are shuffled demo indices with no relation to the source records. Because the encoder isn't shipped, you can only pick among the 236 real (anonymized) cases as your query, not type a new hypothetical one.</li>
     </ul>
   </details>
 
@@ -64,8 +64,8 @@
   <section id="tab-ophthalmology" hidden>
     <div class="panel">
       <h2>Pick one of the 236 real (anonymized) cases</h2>
-      <p class="note">Retrieves nearest neighbors for the selected case from the real trained embeddings, by cosine similarity — the same mechanism manuscript Table 5 is built on.</p>
-      <p class="note">Note on reading results: this cohort is imbalanced (175 Chronic Stable Angina vs. 26 ACS vs. 35 Asymptomatic). Chronic Stable Angina cases retrieve well (~74% same-label neighbors); ACS and Asymptomatic cases retrieve poorly (~11–13%) because the corpus barely contains anything else to match them to. That's the real, already-published Purity@5 behavior of this model (see <code>baseline_comparison_metadata.csv</code>), not a demo bug — pick an ACS or Asymptomatic case to see it.</p>
+      <p class="note">Retrieves nearest neighbors for the selected case from the real trained embeddings, by cosine similarity: the same mechanism manuscript Table 5 is built on.</p>
+      <p class="note">Note on reading results: this cohort is imbalanced (175 Chronic Stable Angina vs. 26 ACS vs. 35 Asymptomatic). Chronic Stable Angina cases retrieve well (~74% same-label neighbors); ACS and Asymptomatic cases retrieve poorly (~11-13%) because the corpus barely contains anything else to match them to. That's the real, already-published Purity@5 behavior of this model (see <code>baseline_comparison_metadata.csv</code>), not a demo bug, pick an ACS or Asymptomatic case to see it.</p>
       <div class="case-picker">
         <select id="ophtho-select"></select>
         <button id="ophtho-run" class="primary" style="margin-top:0">Find similar cases</button>

@@ -2,7 +2,7 @@
 export_demo_data.py
 ====================
 One-time generator for this demo's data/ folder. NOT run by site visitors and
-not run automatically — it reads from the private AidPulse research repo and
+not run automatically: it reads from the private AidPulse research repo and
 writes only derived, review-safe JSON into ../data/.
 
 Run from a machine that has the private repo checked out:
@@ -13,14 +13,14 @@ What it exports and why each is safe to publish:
 
   data/cardiology_model.json
     The REAL trained encoder (weights + scaler) for Cardiology, from
-    Reviewer_Package/Models/cardiology/engine.pkl — already cleared for
+    Reviewer_Package/Models/cardiology/engine.pkl, already cleared for
     reviewer release, trained on the public Kaggle Cardiovascular Disease
     dataset. Encoder only (no decoder weights are read or exported).
 
   data/cardiology_corpus.json
     The same 10,254-patient public corpus behind that model's embeddings.npz,
     with raw (public) feature values so retrieved neighbors can be shown with
-    real details. Embeddings are NOT shipped — the page computes them
+    real details. Embeddings are NOT shipped: the page computes them
     client-side from this data and the weights above, so query and corpus
     embeddings always come from the exact same code path.
 
@@ -28,7 +28,7 @@ What it exports and why each is safe to publish:
     Real embeddings for the real 236-patient AIMS Kochi cohort (from
     Cohort_v2/Embeddings/metadata/embeddings.npz), which is what Table 5 in
     the manuscript evaluates. NO model weights (encoder or decoder) are
-    exported for this department, and NO raw clinical values are exported —
+    exported for this department, and NO raw clinical values are exported,
     only the embedding vector plus a coarse age-decade bucket, gender, and
     CAD-type label. The real REDCap Record ID is replaced with a shuffled
     anonymous index with no relation to the source order, so nothing here
