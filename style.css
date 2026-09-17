@@ -140,6 +140,44 @@ button.primary:hover { filter: brightness(1.08); }
 footer { color: var(--muted); font-size: 0.82rem; margin-top: 32px; }
 footer a { color: inherit; }
 
+.steps {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.steps summary { cursor: pointer; font-weight: 600; color: var(--accent); }
+.steps h3 { font-size: 0.95rem; margin: 18px 0 4px; }
+.steps h3:first-of-type { margin-top: 14px; }
+
+.vec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  margin: 6px 0 4px;
+  overflow-x: auto;
+  display: block;
+}
+.vec-table tr { border-bottom: 1px solid var(--border); }
+.vec-table td, .vec-table th { padding: 4px 8px; text-align: left; white-space: nowrap; }
+.vec-table th { color: var(--muted); font-weight: 600; }
+.vec-table td:first-child { color: var(--muted); }
+
+.code-block { margin: 8px 0 4px; }
+.code-block summary { cursor: pointer; font-size: 0.85rem; color: var(--accent); font-weight: 600; }
+.code-block pre {
+  margin-top: 8px;
+  padding: 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+.code-block code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
 @media (max-width: 480px) {
   .case-picker { flex-direction: column; align-items: stretch; }
 }

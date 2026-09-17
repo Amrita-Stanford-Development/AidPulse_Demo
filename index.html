@@ -57,6 +57,7 @@
       </form>
     </div>
     <div id="cardio-summary" class="summary-line"></div>
+    <div id="cardio-steps"></div>
     <div id="cardio-results" class="results"></div>
   </section>
 
@@ -64,12 +65,14 @@
     <div class="panel">
       <h2>Pick one of the 236 real (anonymized) cases</h2>
       <p class="note">Retrieves nearest neighbors for the selected case from the real trained embeddings, by cosine similarity — the same mechanism manuscript Table 5 is built on.</p>
+      <p class="note">Note on reading results: this cohort is imbalanced (175 Chronic Stable Angina vs. 26 ACS vs. 35 Asymptomatic). Chronic Stable Angina cases retrieve well (~74% same-label neighbors); ACS and Asymptomatic cases retrieve poorly (~11–13%) because the corpus barely contains anything else to match them to. That's the real, already-published Purity@5 behavior of this model (see <code>baseline_comparison_metadata.csv</code>), not a demo bug — pick an ACS or Asymptomatic case to see it.</p>
       <div class="case-picker">
         <select id="ophtho-select"></select>
         <button id="ophtho-run" class="primary" style="margin-top:0">Find similar cases</button>
       </div>
     </div>
     <div id="ophtho-summary" class="summary-line"></div>
+    <div id="ophtho-steps"></div>
     <div id="ophtho-results" class="results"></div>
   </section>
 
@@ -79,6 +82,7 @@
 </div>
 
 <script src="nn.js"></script>
+<script src="viz.js"></script>
 <script src="cardiology.js"></script>
 <script src="ophthalmology.js"></script>
 <script src="app.js"></script>
