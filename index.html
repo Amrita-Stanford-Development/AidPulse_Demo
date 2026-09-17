@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AidPulse — Reviewer Demo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>AidPulse — Retrieval Reviewer Demo</h1>
+    <p class="sub">A reduced, standalone companion to the manuscript "AidPulse: LLM-Augmented Patient Similarity Search for Clinical Decision Support" — retrieval only, no LLM step.</p>
+  </header>
+
+  <details class="disclaimer" open>
+    <summary>What this is (and isn't) — read before using</summary>
+    <p>This demo exists to answer one specific reviewer question: can you actually run the trained retrieval models on an input and see the output? It reproduces only the encode → nearest-neighbor step of the pipeline described in the manuscript. It is <b>not</b> the AidPulse application (patent-pending, excluded here the same way it's excluded from the reviewer package) and it does <b>not</b> include the LLM clinical-reasoning step.</p>
+    <ul>
+      <li><b>Cardiology</b> — the real trained model and its real 10,254-patient corpus (public Kaggle Cardiovascular Disease dataset), the same artifact already shared in the reviewer package. You can type in any hypothetical patient.</li>
+      <li><b>Ophthalmology (AIMS Kochi)</b> — real embeddings from the real trained model for the actual 236-patient private cohort behind manuscript Table 5. No model weights (encoder or decoder) are included, and no raw clinical values are included — only a coarse age-decade, gender, and CAD-type label per case. Patient IDs shown are shuffled demo indices with no relation to the source records. Because the encoder isn't shipped, you can only pick among the 236 real (anonymized) cases as your query, not type a new hypothetical one.</li>
+    </ul>
+  </details>
+
+  <nav class="tabs">
+    <button data-tab="cardiology" class="active">Cardiology</button>
+    <button data-tab="ophthalmology">Ophthalmology (AIMS)</button>
+  </nav>
+
+  <section id="tab-cardiology">
+    <div class="panel">
+      <h2>Submit a hypothetical patient</h2>
+      <p class="note">Runs the real trained Cardiology encoder in your browser (no server) and retrieves nearest neighbors from the real 10,254-patient corpus by cosine similarity.</p>
+      <form id="cardio-form">
+        <div class="form-grid">
+          <div><label>Age (years)</label><input type="number" name="age" min="18" max="100" value="55" required></div>
+          <div><label>Gender</label>
+            <select name="gender"><option value="1">Male</option><option value="0">Female</option></select>
+          </div>
+          <div><label>Height (cm)</label><input type="number" name="height" min="140" max="220" value="170" required></div>
+          <div><label>Weight (kg)</label><input type="number" name="weight" min="40" max="200" value="75" required></div>
+          <div><label>Systolic BP</label><input type="number" name="ap_hi" min="1" max="249" value="130" required></div>
+          <div><label>Diastolic BP</label><input type="number" name="ap_lo" min="1" max="199" value="85" required></div>
+          <div><label>Cholesterol</label>
+            <select name="cholesterol"><option value="1">Normal</option><option value="2">Above normal</option><option value="3">Well above normal</option></select>
+          </div>
+          <div><label>Glucose</label>
+            <select name="gluc"><option value="1">Normal</option><option value="2">Above normal</option><option value="3">Well above normal</option></select>
+          </div>
+        </div>
+        <div class="form-grid" style="margin-top:4px">
+          <label class="checkrow"><input type="checkbox" name="smoke"> Smoker</label>
+          <label class="checkrow"><input type="checkbox" name="alco"> Drinks alcohol</label>
+          <label class="checkrow"><input type="checkbox" name="active" checked> Physically active</label>
+        </div>
+        <button type="submit" class="primary">Find similar patients</button>
+      </form>
+    </div>
+    <div id="cardio-summary" class="summary-line"></div>
+    <div id="cardio-results" class="results"></div>
+  </section>
+
+  <section id="tab-ophthalmology" hidden>
+    <div class="panel">
+      <h2>Pick one of the 236 real (anonymized) cases</h2>
+      <p class="note">Retrieves nearest neighbors for the selected case from the real trained embeddings, by cosine similarity — the same mechanism manuscript Table 5 is built on.</p>
+      <div class="case-picker">
+        <select id="ophtho-select"></select>
+        <button id="ophtho-run" class="primary" style="margin-top:0">Find similar cases</button>
+      </div>
+    </div>
+    <div id="ophtho-summary" class="summary-line"></div>
+    <div id="ophtho-results" class="results"></div>
+  </section>
+
+  <footer>
+    <p>Source and data-export script: see <code>scripts/export_demo_data.py</code> in this repository for exactly how each file here was derived from the manuscript's models. Nothing in this repository can reconstruct a real AIMS patient record.</p>
+  </footer>
+</div>
+
+<script src="nn.js"></script>
+<script src="cardiology.js"></script>
+<script src="ophthalmology.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
